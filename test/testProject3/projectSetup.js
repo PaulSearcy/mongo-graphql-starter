@@ -1,4 +1,4 @@
-import { MongoIdType, StringType, arrayOf } from "../../src/dataTypes";
+import { MongoIdType, StringType, arrayOf } from "../../src/dataTypes.js";
 
 export const Tag = {
   table: "tags",

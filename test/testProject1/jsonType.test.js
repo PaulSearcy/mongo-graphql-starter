@@ -1,5 +1,5 @@
-import spinUp from "./spinUp";
-import { ObjectId } from "mongodb";
+import spinUp from "./spinUp.js";
+import mongodb from "mongodb";
 
 let db, schema, queryAndMatchArray, runMutation, close;
 beforeAll(async () => {

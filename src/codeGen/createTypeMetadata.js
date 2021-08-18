@@ -9,8 +9,8 @@ import {
   MongoIdArrayType,
   IntArrayType,
   FloatArrayType
-} from "../dataTypes";
-import { TAB } from "./utilities";
+} from "../dataTypes.js";
+import { TAB } from "./utilities.js";
 
 const defaultDateFormat = "%m/%d/%Y";
 
@@ -32,7 +32,7 @@ export default function createOutputTypeMetadata(objectToCreate) {
     Object.keys(relationships).forEach(k => types.add(relationships[k].type.__name));
   }
 
-  let imports = types.size ? [...types].map(n => `import ${n} from "../${n}/${n}";`).join("\n") + "\n\n" : "";
+  let imports = types.size ? [...types].map(n => `import ${n} from "../${n}/${n}.js";`).join("\n") + "\n\n" : "";
 
   return (
     createObject(

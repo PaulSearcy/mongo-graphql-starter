@@ -1,35 +1,39 @@
 import fs from "fs";
 import path from "path";
-import { TAB, TAB2 } from "./utilities";
-import { MongoIdType, StringType, StringArrayType, MongoIdArrayType } from "../dataTypes";
+import { TAB, TAB2 } from "./utilities.js";
+import { MongoIdType, StringType, StringArrayType, MongoIdArrayType } from "../dataTypes.js";
 
-import createItemTemplate from "./resolverTemplateMethods/createItem";
-import updateItemTemplate from "./resolverTemplateMethods/updateItem";
-import updateItemsTemplate from "./resolverTemplateMethods/updateItems";
-import updateItemsBulkTemplate from "./resolverTemplateMethods/updateItemsBulk";
-import deleteItemTemplate from "./resolverTemplateMethods/deleteItem";
+import createItemTemplate from "./resolverTemplateMethods/createItem.js";
+import updateItemTemplate from "./resolverTemplateMethods/updateItem.js";
+import updateItemsTemplate from "./resolverTemplateMethods/updateItems.js";
+import updateItemsBulkTemplate from "./resolverTemplateMethods/updateItemsBulk.js";
+import deleteItemTemplate from "./resolverTemplateMethods/deleteItem.js";
 
-//fs.readFileSync(path.resolve(__dirname, "./resolverTemplateMethods/createItem.txt"), { encoding: "utf8" });
+import { fileURLToPath } from 'url';
+let fileName = fileURLToPath(import.meta.url);
+let dirName = path.dirname(fileName);
+
+//fs.readFileSync(path.resolve(dirName, "./resolverTemplateMethods/createItem.txt"), { encoding: "utf8" });
 
 export default function createGraphqlResolver(objectToCreate, options) {
-  let template = fs.readFileSync(path.resolve(__dirname, "./resolverTemplate.txt"), { encoding: "utf8" });
-  let projectOneToOneResolverTemplate = fs.readFileSync(path.resolve(__dirname, "./projectOneToOneResolverTemplate.txt"), { encoding: "utf8" });
+  let template = fs.readFileSync(path.resolve(dirName, "./resolverTemplate.txt"), { encoding: "utf8" });
+  let projectOneToOneResolverTemplate = fs.readFileSync(path.resolve(dirName, "./projectOneToOneResolverTemplate.txt"), { encoding: "utf8" });
   let projectOneToManyResolverTemplate_ArrayReceivingKey = fs.readFileSync(
-    path.resolve(__dirname, "./projectOneToManyResolverTemplate_ArrayReceivingKey.txt"),
+    path.resolve(dirName, "./projectOneToManyResolverTemplate_ArrayReceivingKey.txt"),
     {
       encoding: "utf8"
     }
   );
   let projectOneToManyResolverTemplate_SingleReceivingKey = fs.readFileSync(
-    path.resolve(__dirname, "./projectOneToManyResolverTemplate_SingleReceivingKey.txt"),
+    path.resolve(dirName, "./projectOneToManyResolverTemplate_SingleReceivingKey.txt"),
     {
       encoding: "utf8"
     }
   );
-  let projectManyToManyResolverTemplate = fs.readFileSync(path.resolve(__dirname, "./projectManyToManyResolverTemplate.txt"), { encoding: "utf8" });
+  let projectManyToManyResolverTemplate = fs.readFileSync(path.resolve(dirName, "./projectManyToManyResolverTemplate.txt"), { encoding: "utf8" });
 
-  let getItemTemplate = fs.readFileSync(path.resolve(__dirname, "./resolverTemplateMethods/getItem.txt"), { encoding: "utf8" });
-  let allItemsTemplate = fs.readFileSync(path.resolve(__dirname, "./resolverTemplateMethods/allItems.txt"), { encoding: "utf8" });
+  let getItemTemplate = fs.readFileSync(path.resolve(dirName, "./resolverTemplateMethods/getItem.txt"), { encoding: "utf8" });
+  let allItemsTemplate = fs.readFileSync(path.resolve(dirName, "./resolverTemplateMethods/allItems.txt"), { encoding: "utf8" });
   let hooksPath = `"../hooks"`;
   let readonly = objectToCreate.readonly;
 
@@ -52,8 +56,8 @@ export default function createGraphqlResolver(objectToCreate, options) {
     `const { setUpOneToManyRelationships, newObjectFromArgs } = insertUtilities;`,
     `const { getMongoProjection, parseRequestedFields } = projectUtilities;`,
     `const { getUpdateObject, setUpOneToManyRelationshipsForUpdate } = updateUtilities;`,
-    `import { ObjectId } from "mongodb";`,
-    `import ${objName}Metadata from "./${objName}";`,
+    `import mongodb from "mongodb";`,
+    `import ${objName}Metadata from "./${objName}.js";`,
     ...resolverSources.map(
       (src, i) =>
         `import ResolverExtras${i + 1} from "${src}";\nconst { Query: QueryExtras${i + 1}, Mutation: MutationExtras${i + 1}, ...OtherExtras${
@@ -128,7 +132,7 @@ export default function createGraphqlResolver(objectToCreate, options) {
 
       if (!typeImports.has(relationship.type.__name) && relationship.type.__name != objName) {
         typeImports.add(relationship.type.__name);
-        imports.push(`import ${relationship.type.__name}Metadata from "../${relationship.type.__name}/${relationship.type.__name}";`);
+        imports.push(`import ${relationship.type.__name}Metadata from "../${relationship.type.__name}/${relationship.type.__name}.js";`);
       }
 
       if (!typeImports.has("flatMap")) {

@@ -1,6 +1,8 @@
-import { ObjectId } from "mongodb";
-import * as dbHelpers from "./dbHelpers";
-import processHook from "./processHook";
+import mongodb from "mongodb";
+import * as dbHelpers from "./dbHelpers.js";
+import processHook from "./processHook.js";
+
+const { ObjectId } = mongodb;
 
 export const startDbMutation = async ({ root, args, context }, objName, typeMetadata, { create, update, delete: isDelete }) => {
   let [db, client] = await Promise.all([

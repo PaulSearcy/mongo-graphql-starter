@@ -1,4 +1,4 @@
-import { mutationStart, mutationComplete, mutationError, mutationOver, mutationMeta } from "../mutationHelpers";
+import { mutationStart, mutationComplete, mutationError, mutationOver, mutationMeta } from "../mutationHelpers.js";
 
 export default ({ objName }) =>
   `    async create${objName}(root, args, context, ast) {

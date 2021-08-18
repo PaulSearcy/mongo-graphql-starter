@@ -1,4 +1,4 @@
-import spinUp from "./spinUp";
+import spinUp from "./spinUp.js";
 
 let db, schema, queryAndMatchArray, runMutation, close;
 let objA;

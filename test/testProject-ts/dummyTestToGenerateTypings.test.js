@@ -1,4 +1,4 @@
-import spinUp from "./spinUp";
+import spinUp from "./spinUp.js";
 
 beforeAll(async () => {
   await spinUp();

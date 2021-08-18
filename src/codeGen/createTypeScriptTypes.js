@@ -1,12 +1,16 @@
 import fs from "fs";
 import path from "path";
+import { fileURLToPath } from 'url';
 import { buildSchema, printSchema, parse } from "graphql";
 
 import { codegen } from "@graphql-codegen/core";
 import { plugin as typescriptPlugin } from "@graphql-codegen/typescript";
 import { plugin as typescriptOperationsPlugin } from "@graphql-codegen/typescript-operations";
 
-const additionalTypes = fs.readFileSync(path.resolve(__dirname, "./typeScriptHelperTypes.txt"), { encoding: "utf8" });
+let fileName = fileURLToPath(import.meta.url);
+let dirName = path.dirname(fileName);
+
+const additionalTypes = fs.readFileSync(path.resolve(dirName, "./typeScriptHelperTypes.txt"), { encoding: "utf8" });
 
 export default async function createTypeScriptTypes(schemaText, outputFile) {
   const schema = buildSchema(schemaText);

@@ -1,9 +1,9 @@
-import { TAB, TAB2 } from "./utilities";
+import { TAB, TAB2 } from "./utilities.js";
 
 export default function createMasterResolver(namesWithTables, writeableNames, resolverAdditions) {
-  let resolverImports = namesWithTables.map(n => `import ${n}, { ${n} as ${n}Rest } from './${n}/resolver';`).join("\n");
+  let resolverImports = namesWithTables.map(n => `import ${n}, { ${n} as ${n}Rest } from './${n}/resolver.js';`).join("\n");
   let resolverDestructurings = "const " + namesWithTables.map(n => `{ Query: ${n}Query, Mutation: ${n}Mutation } = ${n}`).join(";\nconst ") + ";";
-  let resolverAdditionImports = resolverAdditions.map((n, i) => `import resolverAddition${i + 1} from '${n}';`).join("\n");
+  let resolverAdditionImports = resolverAdditions.map((n, i) => `import resolverAddition${i + 1} from '${n}'.js;`).join("\n");
   let resolverAdditionDestructurings = resolverAdditions
     .map(
       (n, i) =>

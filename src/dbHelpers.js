@@ -1,5 +1,6 @@
-import { MongoError } from "mongodb";
-import processHook from "./processHook";
+import mongodb from "mongodb";
+import processHook from "./processHook.js";
+const { MongoError } = mongodb;
 
 export async function runUpdate(db, table, $match, updates, options) {
   if (updates.$set || updates.$inc || updates.$push || updates.$pull || updates.$addToSet || updates.$unset) {

@@ -2,17 +2,20 @@ import path from "path";
 import fs from "fs";
 import mkdirp from "mkdirp";
 
-import { MongoIdType, StringArrayType, MongoIdArrayType, IntArrayType, FloatArrayType } from "./dataTypes";
-import createTypeResolver from "./codeGen/createTypeResolver";
-import createGraphqlTypeSchema from "./codeGen/createTypeSchema";
-import createOutputTypeMetadata from "./codeGen/createTypeMetadata";
-import createMasterSchema from "./codeGen/createMasterSchema";
+import { MongoIdType, StringArrayType, MongoIdArrayType, IntArrayType, FloatArrayType } from "./dataTypes.js";
+import createTypeResolver from "./codeGen/createTypeResolver.js";
+import createGraphqlTypeSchema from "./codeGen/createTypeSchema.js";
+import createOutputTypeMetadata from "./codeGen/createTypeMetadata.js";
+import createMasterSchema from "./codeGen/createMasterSchema.js";
 
-import createMasterResolver from "./codeGen/createMasterResolver";
-import createTypeScriptTypes from "./codeGen/createTypeScriptTypes";
-import createTestSchema from "./codeGen/createTestSchema";
+import createMasterResolver from "./codeGen/createMasterResolver.js";
+import createTypeScriptTypes from "./codeGen/createTypeScriptTypes.js";
+import createTestSchema from "./codeGen/createTestSchema.js";
 
 import prettier from "prettier";
+import { fileURLToPath } from 'url';
+let fileName = fileURLToPath(import.meta.url);
+let dirName = path.dirname(fileName);
 
 function createFile(path, contents, onlyIfAbsent, ...directoriesToCreate) {
   directoriesToCreate.forEach(dir => {
@@ -126,10 +129,11 @@ export default function (source, destPath, options = {}) {
       path.join(rootDir, "schema.js"),
       formatJs(createMasterSchema(names, namesWithTables, namesWithoutTables, namesWriteable, schemaAdditions))
     );
-
-    const schemaModule = require(path.join(rootDir, "schema.js"));
-    const masterSchema = formatGraphQL(schemaModule.default);
-    fs.writeFileSync(path.join(rootDir, "entireSchema.gql"), masterSchema);
+    const test = createMasterSchema(names, namesWithTables, namesWithoutTables, namesWriteable, schemaAdditions)
+    // const schemaModule = await import(path.join(rootDir, "schema.js"));
+    // const masterSchema = formatGraphQL(schemaModule.default);
+    // const masterSchema = formatGraphQL(test);
+    fs.writeFileSync(path.join(rootDir, "entireSchema.gql"), test);
 
     try {
       fs.writeFileSync(
@@ -152,7 +156,7 @@ export default function (source, destPath, options = {}) {
     if (!options.hooks && !fs.existsSync(path.join(rootDir, "hooks.js"))) {
       fs.writeFileSync(
         path.join(rootDir, "hooks.js"),
-        formatJs(fs.readFileSync(path.resolve(__dirname, "./codeGen/processingHooksTemplate.js"), { encoding: "utf8" }))
+        formatJs(fs.readFileSync(path.resolve(dirName, "./codeGen/processingHooksTemplate.js"), { encoding: "utf8" }))
       );
     }
 

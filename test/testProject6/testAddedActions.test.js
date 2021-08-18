@@ -1,4 +1,4 @@
-import spinUp from "./spinUp";
+import spinUp from "./spinUp.js";
 
 let db, schema, queryAndMatchArray, runMutation, close;
 let item = { x: 5, y: 6, userId: 1 }; //userId to make the rest of the middleware happy :\

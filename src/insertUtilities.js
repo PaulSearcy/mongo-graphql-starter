@@ -1,7 +1,9 @@
-import { ObjectId } from "mongodb";
+import mongodb from "mongodb";
 
-import { processInsertions } from "./dbHelpers";
-import { MongoIdType, MongoIdArrayType, StringType, StringArrayType, DateType } from "./dataTypes";
+import { processInsertions } from "./dbHelpers.js";
+import { MongoIdType, MongoIdArrayType, StringType, StringArrayType, DateType } from "./dataTypes.js";
+
+const { ObjectId } = mongodb;
 
 export async function insertObjects(argsArray, typeMetadata, options) {
   if (!Array.isArray(argsArray)) {

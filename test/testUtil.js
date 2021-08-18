@@ -1,4 +1,4 @@
-import { MongoClient } from "mongodb";
+import mongodb from "mongodb";
 import { graphql } from "graphql";
 
 let connectionUid = 1;

@@ -1,8 +1,10 @@
-import { ObjectId } from "mongodb";
+import mongodb from "mongodb";
 
-import { MongoIdType, MongoIdArrayType, DateType, StringType, StringArrayType, IntArrayType, FloatArrayType } from "./dataTypes";
-import { insertObjects, newObjectFromArgs } from "./insertUtilities";
-import { fillMongoFiltersObject } from "./queryUtilities";
+import { MongoIdType, MongoIdArrayType, DateType, StringType, StringArrayType, IntArrayType, FloatArrayType } from "./dataTypes.js";
+import { insertObjects, newObjectFromArgs } from "./insertUtilities.js";
+import { fillMongoFiltersObject } from "./queryUtilities.js";
+
+const { ObjectId } = mongodb;
 
 export async function getUpdateObject(updatesObject, typeMetadata, relationshipLoadingUtils = {}) {
   let $set = {};

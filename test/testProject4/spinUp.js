@@ -1,16 +1,21 @@
-import { MongoClient } from "mongodb";
-import { queryAndMatchArray, runQuery, runMutation, nextConnectionString } from "../testUtil";
+import mongodb from "mongodb";
+import { queryAndMatchArray, runQuery, runMutation, nextConnectionString } from "../testUtil.js";
 import { makeExecutableSchema } from "graphql-tools";
-import { createGraphqlSchema, settings } from "../../src/module";
+import { createGraphqlSchema, settings } from "../../src/module.js";
 import path from "path";
 import glob from "glob";
 import fs from "fs";
 
-import * as projectSetupD from "./projectSetup";
+import * as projectSetupD from "./projectSetup.js";
+import { fileURLToPath } from 'url';
+let fileName = fileURLToPath(import.meta.url);
+let dirName = path.dirname(fileName);
+
+const { MongoClient } = mongodb;
 
 export async function create() {
   await Promise.resolve(
-    createGraphqlSchema(projectSetupD, path.resolve("./test/testProject4"), { hooks: path.resolve(__dirname, "./projectSetup_Hooks.js") })
+    createGraphqlSchema(projectSetupD, path.resolve("./test/testProject4"), { hooks: path.resolve(dirName, "./projectSetup_Hooks.js") })
   ).then(() => {
     if (true || process.env.InCI) {
       glob.sync("./test/testProject4/graphQL/**/resolver.js").forEach(f => {

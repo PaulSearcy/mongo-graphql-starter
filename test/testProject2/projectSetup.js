@@ -9,7 +9,7 @@ import {
   DateType,
   arrayOf,
   objectOf
-} from "../../src/dataTypes";
+} from "../../src/dataTypes.js";
 
 export const Subject = {
   table: "subjects",

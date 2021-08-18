@@ -1,6 +1,7 @@
-const del = require("del");
+// const del = require("del");
+import del from 'del';
 
-module.exports = () => {
+export default () => {
   try {
     del.sync("test/testProject1/graphQL");
     del.sync("test/testProject1_NewDriver/graphQL");

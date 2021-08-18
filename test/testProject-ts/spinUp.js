@@ -1,12 +1,12 @@
-import { MongoClient } from "mongodb";
-import { queryAndMatchArray, runQuery, runMutation, nextConnectionString } from "../testUtil";
+import mongodb from "mongodb";
+import { queryAndMatchArray, runQuery, runMutation, nextConnectionString } from "../testUtil.js";
 import { makeExecutableSchema } from "graphql-tools";
-import { createGraphqlSchema } from "../../src/module";
+import { createGraphqlSchema } from "../../src/module.js";
 import path from "path";
 import glob from "glob";
 import fs from "fs";
 
-import * as projectSetupTS from "./projectSetup";
+import * as projectSetupTS from "./projectSetup.js";
 import dotenv from "dotenv";
 dotenv.config();
 

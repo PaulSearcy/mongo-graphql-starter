@@ -1,13 +1,19 @@
-import { MongoClient } from "mongodb";
-import { queryAndMatchArray, runQuery, runMutation, nextConnectionString } from "../testUtil";
+import mongodb from "mongodb";
+import { queryAndMatchArray, runQuery, runMutation, nextConnectionString } from "../testUtil.js";
 import { makeExecutableSchema } from "graphql-tools";
-import { createGraphqlSchema } from "../../src/module";
+import { createGraphqlSchema } from "../../src/module.js";
 import path from "path";
 import glob from "glob";
 import fs from "fs";
 import mkdirp from "mkdirp";
 
-import * as projectSetupF from "../testProject6/projectSetup";
+import * as projectSetupF from "../testProject6/projectSetup.js";
+
+import { fileURLToPath } from 'url';
+let fileName = fileURLToPath(import.meta.url);
+let dirName = path.dirname(fileName);
+
+const { MongoClient } = mongodb;
 
 export async function create() {
   let projectSetupG = { ...projectSetupF };
@@ -23,30 +29,30 @@ export async function create() {
   };
 
   await Promise.resolve(
-    createGraphqlSchema(projectSetupG, path.resolve("./test/testProject7"), { hooks: path.resolve(__dirname, "./projectSetup_Hooks.js") })
+    createGraphqlSchema(projectSetupG, path.resolve("./test/testProject7"), { hooks: path.resolve(dirName, "./projectSetup_Hooks.js") })
   ).then(() => {
     if (!fs.existsSync("./test/testProject7/graphQL-extras")) {
       mkdirp.sync("./test/testProject7/graphQL-extras");
     }
     fs.writeFileSync(
       path.resolve("./test/testProject7/graphQL-extras/coordinateSchemaExtras1.js"),
-      fs.readFileSync(path.resolve(__dirname, "./projectSetup_SchemaExtras1.js"), { encoding: "utf8" })
+      fs.readFileSync(path.resolve(dirName, "./projectSetup_SchemaExtras1.js"), { encoding: "utf8" })
     );
     fs.writeFileSync(
       path.resolve("./test/testProject7/graphQL-extras/coordinateSchemaExtras2.js"),
-      fs.readFileSync(path.resolve(__dirname, "./projectSetup_SchemaExtras2.js"), { encoding: "utf8" })
+      fs.readFileSync(path.resolve(dirName, "./projectSetup_SchemaExtras2.js"), { encoding: "utf8" })
     );
     fs.writeFileSync(
       path.resolve("./test/testProject7/graphQL-extras/coordinateResolverExtras1.js"),
-      fs.readFileSync(path.resolve(__dirname, "./projectSetup_ResolverExtras1.js"), { encoding: "utf8" })
+      fs.readFileSync(path.resolve(dirName, "./projectSetup_ResolverExtras1.js"), { encoding: "utf8" })
     );
     fs.writeFileSync(
       path.resolve("./test/testProject7/graphQL-extras/coordinateResolverExtras2.js"),
-      fs.readFileSync(path.resolve(__dirname, "./projectSetup_ResolverExtras2.js"), { encoding: "utf8" })
+      fs.readFileSync(path.resolve(dirName, "./projectSetup_ResolverExtras2.js"), { encoding: "utf8" })
     );
     fs.writeFileSync(
       path.resolve("./test/testProject7/graphQL-extras/coordinateResolverExtras3.js"),
-      fs.readFileSync(path.resolve(__dirname, "./projectSetup_ResolverExtras3.js"), { encoding: "utf8" })
+      fs.readFileSync(path.resolve(dirName, "./projectSetup_ResolverExtras3.js"), { encoding: "utf8" })
     );
 
     if (true || process.env.InCI) {

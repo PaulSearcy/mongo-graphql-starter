@@ -1,5 +1,7 @@
-import spinUp from "./spinUp";
-import { ObjectId } from "mongodb";
+import spinUp from "./spinUp.js";
+import mongodb from "mongodb";
+
+const { ObjectId } = mongodb;
 
 const id1 = ObjectId("59ff9b246d61043f186dcfed");
 const id2 = ObjectId("59ff9b246d61043f186dcfee");

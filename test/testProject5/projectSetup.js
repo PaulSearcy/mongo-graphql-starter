@@ -1,4 +1,4 @@
-import { MongoIdType, MongoIdArrayType, StringType, StringArrayType, IntType, FloatType, DateType, arrayOf, objectOf } from "../../src/dataTypes";
+import { MongoIdType, MongoIdArrayType, StringType, StringArrayType, IntType, FloatType, DateType, arrayOf, objectOf } from "../../src/dataTypes.js";
 
 export const Keyword = {
   table: "keywords",

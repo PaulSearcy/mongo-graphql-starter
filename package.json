@@ -9,6 +9,7 @@
   },
   "author": "Adam Rackis",
   "license": "MIT",
+  "type": "module",
   "bugs": {
     "url": "https://github.com/arackaf/mongo-graphql-starter/issues"
   },
@@ -22,6 +23,8 @@
   },
   "homepage": "https://github.com/arackaf/mongo-graphql-starter",
   "devDependencies": {
+    "@babel/core": "^7.15.0",
+    "@babel/plugin-transform-modules-commonjs": "^7.15.0",
     "babel-jest": "^24.9.0",
     "babel-plugin-dynamic-import-node": "^2.3.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
@@ -36,7 +39,8 @@
     "graphql": "^14.5.8",
     "graphql-request": "^1.8.2",
     "jest": "^27.0.1",
-    "mongodb": "^3.1.13"
+    "mongodb": "^3.1.13",
+    "run-rs": "^0.7.5"
   },
   "scripts": {
     "test-local": "jest --runInBand --config=test/jestConfig/jest.configRoot.json",
@@ -69,7 +73,7 @@
     "prettier": "latest"
   },
   "peerDependencies": {
-    "mongodb": ">= 2.2.31",
-    "graphql": ">= 0.13.2"
+    "graphql": ">= 0.13.2",
+    "mongodb": ">= 2.2.31"
   }
 }

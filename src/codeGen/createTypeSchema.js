@@ -1,5 +1,5 @@
-import createTypeSchemaHelpers from "./typeSchemaHelpers";
-import { TAB } from "./utilities";
+import createTypeSchemaHelpers from "./typeSchemaHelpers.js";
+import { TAB } from "./utilities.js";
 
 export default function createGraphqlTypeSchema(objectToCreate) {
   let manualQueryArgs = [];

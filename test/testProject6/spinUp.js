@@ -1,26 +1,32 @@
-import { MongoClient } from "mongodb";
-import { queryAndMatchArray, runQuery, runMutation, nextConnectionString } from "../testUtil";
+import mongodb from "mongodb";
+import { queryAndMatchArray, runQuery, runMutation, nextConnectionString } from "../testUtil.js";
 import { makeExecutableSchema } from "graphql-tools";
-import { createGraphqlSchema } from "../../src/module";
+import { createGraphqlSchema } from "../../src/module.js";
 import path from "path";
 import glob from "glob";
 import fs from "fs";
 import mkdirp from "mkdirp";
 
-import * as projectSetupF from "./projectSetup";
+import * as projectSetupF from "./projectSetup.js";
+
+import { fileURLToPath } from 'url';
+let fileName = fileURLToPath(import.meta.url);
+let dirName = path.dirname(fileName);
+
+const { MongoClient } = mongodb;
 
 export async function create() {
   //TODO: this shit
   await Promise.resolve(
     createGraphqlSchema(projectSetupF, path.resolve("./test/testProject6"), {
-      hooks: path.resolve(__dirname, "./projectSetup_Hooks.js"),
+      hooks: path.resolve(dirName, "./projectSetup_Hooks.js"),
       schemaAdditions: [
-        path.resolve(__dirname, "./graphQL-extras/schemaAdditions1.gql"),
-        path.resolve(__dirname, "./graphQL-extras/schemaAdditions2.gql")
+        path.resolve(dirName, "./graphQL-extras/schemaAdditions1.gql"),
+        path.resolve(dirName, "./graphQL-extras/schemaAdditions2.gql")
       ],
       resolverAdditions: [
-        path.resolve(__dirname, "./graphQL-extras/resolverAdditions1"),
-        path.resolve(__dirname, "./graphQL-extras/resolverAdditions2")
+        path.resolve(dirName, "./graphQL-extras/resolverAdditions1"),
+        path.resolve(dirName, "./graphQL-extras/resolverAdditions2")
       ]
     })
   ).then(() => {
@@ -29,11 +35,11 @@ export async function create() {
     }
     fs.writeFileSync(
       path.resolve("./test/testProject6/graphQL-extras/coordinateSchemaExtras.js"),
-      fs.readFileSync(path.resolve(__dirname, "./projectSetup_SchemaExtras.js"), { encoding: "utf8" })
+      fs.readFileSync(path.resolve(dirName, "./projectSetup_SchemaExtras.js"), { encoding: "utf8" })
     );
     fs.writeFileSync(
       path.resolve("./test/testProject6/graphQL-extras/coordinateResolverExtras.js"),
-      fs.readFileSync(path.resolve(__dirname, "./projectSetup_ResolverExtras.js"), { encoding: "utf8" })
+      fs.readFileSync(path.resolve(dirName, "./projectSetup_ResolverExtras.js"), { encoding: "utf8" })
     );
 
     if (true || process.env.InCI) {

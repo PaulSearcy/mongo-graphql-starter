@@ -1,7 +1,7 @@
-import { queryUtilities } from "../../src/module";
+import { queryUtilities } from "../../src/module.js";
 const { getMongoFilters } = queryUtilities;
 
-import { create } from "../testProject1/spinUp";
+import { create } from "../testProject1/spinUp.js";
 
 let Book;
 

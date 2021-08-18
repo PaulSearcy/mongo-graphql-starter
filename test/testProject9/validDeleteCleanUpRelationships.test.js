@@ -1,5 +1,10 @@
-import spinUp from "./spinUp";
-import { ObjectId } from "mongodb";
+import spinUp from "./spinUp.js";
+import mongodb from "mongodb";
+import {jest} from '@jest/globals';
+
+jest.useFakeTimers();
+
+const { ObjectId } = mongodb;
 
 let db, schema, runQuery, queryAndMatchArray, runMutation, close;
 

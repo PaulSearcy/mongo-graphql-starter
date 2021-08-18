@@ -14,7 +14,7 @@ import {
   formattedDate,
   JSONType,
   typeLiteral
-} from "../../src/dataTypes";
+} from "../../src/dataTypes.js";
 
 export const Author = {
   fields: {

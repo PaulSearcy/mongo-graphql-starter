@@ -1,12 +1,14 @@
-import { MongoClient } from "mongodb";
-import { queryAndMatchArray, runMutation, runQuery, nextConnectionString } from "../testUtil";
+import mongodb from "mongodb";
+import { queryAndMatchArray, runMutation, runQuery, nextConnectionString } from "../testUtil.js";
 import { makeExecutableSchema } from "graphql-tools";
-import { createGraphqlSchema } from "../../src/module";
+import { createGraphqlSchema } from "../../src/module.js";
 import path from "path";
 import glob from "glob";
 import fs from "fs";
 
-import * as projectSetupA from "./projectSetup";
+import * as projectSetupA from "./projectSetup.js";
+
+const { MongoClient } = mongodb;
 
 export async function create() {
   await createGraphqlSchema(projectSetupA, path.resolve("./test/testProject1"));

@@ -1,4 +1,4 @@
-import { IntArrayType, FloatArrayType, StringType, StringArrayType } from "../../src/dataTypes";
+import { IntArrayType, FloatArrayType, StringType, StringArrayType } from "../../src/dataTypes.js";
 
 export const Thing = {
   table: "things",

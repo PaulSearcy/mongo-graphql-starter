@@ -1,4 +1,4 @@
-import { mutationStart, mutationError, mutationOver, mutationMeta, mutationComplete } from "../mutationHelpers";
+import { mutationStart, mutationError, mutationOver, mutationMeta, mutationComplete } from "../mutationHelpers.js";
 
 export default ({ objName, table }) => `    async update${objName}s(root, args, context, ast) {
       ${mutationStart({ objName, op: "update" })}

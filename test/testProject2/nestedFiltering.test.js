@@ -1,4 +1,4 @@
-import spinUp from "./spinUp";
+import spinUp from "./spinUp.js";
 
 const authorA = {
   name: "A 1",

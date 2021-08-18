@@ -1,4 +1,4 @@
-import { mutationStart, mutationError, mutationOver, mutationMeta, mutationComplete } from "../mutationHelpers";
+import { mutationStart, mutationError, mutationOver, mutationMeta, mutationComplete } from "../mutationHelpers.js";
 
 export default ({ objName, table, relationshipCleanup }) => `    async delete${objName}(root, args, context, ast) {
       if (!args._id) {

@@ -1,13 +1,15 @@
-import { MongoIdType, MongoIdArrayType, StringType, StringArrayType, IntArrayType, IntType, FloatType, FloatArrayType } from "./dataTypes";
-import { ObjectId } from "mongodb";
-import { processInsertions } from "./dbHelpers";
+import { MongoIdType, MongoIdArrayType, StringType, StringArrayType, IntArrayType, IntType, FloatType, FloatArrayType } from "./dataTypes.js";
+import mongodb from "mongodb";
+import { processInsertions } from "./dbHelpers.js";
 
 import escapeStringRegexp from "escape-string-regexp";
-import { newObjectFromArgs, insertObjects } from "./insertUtilities";
-import { parseRequestedFields, parseRequestedHierarchy, getNestedQueryInfo, getRelationshipAst } from "./projectUtilities";
-import settings from "./settings";
+import { newObjectFromArgs, insertObjects } from "./insertUtilities.js";
+import { parseRequestedFields, parseRequestedHierarchy, getNestedQueryInfo, getRelationshipAst } from "./projectUtilities.js";
+import settings from "./settings.js";
 
-import { typeFromAST, TypeInfo } from "graphql/utilities";
+import { typeFromAST, TypeInfo } from "graphql/utilities/index.js";
+
+const { ObjectId } = mongodb;
 
 export function getMongoFilters(args, objectMetaData) {
   return fillMongoFiltersObject(args, objectMetaData);

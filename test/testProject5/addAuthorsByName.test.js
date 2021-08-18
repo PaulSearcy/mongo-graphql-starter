@@ -1,5 +1,7 @@
-import spinUp from "./spinUp";
-import { ObjectId } from "mongodb";
+import spinUp from "./spinUp.js";
+import mongodb from "mongodb";
+
+const { ObjectId } = mongodb;
 
 let db, schema, queryAndMatchArray, runMutation, close;
 let adam, katie, laura, mallory, book1, book2, book3;
